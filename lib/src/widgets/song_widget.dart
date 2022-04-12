@@ -1,5 +1,4 @@
-import 'dart:io';
-import 'package:audio_manager/audio_manager.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -26,7 +25,9 @@ class SongWidget extends StatelessWidget {
                         height: 90,
                         width: 150,
                         fit: BoxFit.cover,
-                        image: FileImage(File(song.album ?? '')),
+                        // image: FileImage(File(song. ?? '')),
+                        image: NetworkImage(
+                            'https://www.pngmart.com/files/15/Digital-CD-Disk-Vector-PNG-Transparent-Image.png'),
                       ),
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -72,14 +73,9 @@ class SongWidget extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              AudioManager.instance
-                                  .start("file://${song.uri}", song.title,
-                                      desc: song.displayName,
-                                      auto: true,
-                                      cover: song.album ?? '')
-                                  .then((err) {
-                                print(err);
-                              });
+                              print('cacncion: ${song.uri}');
+                              AudioPlayer audio = AudioPlayer();
+                              audio.play('${song.data}', isLocal: true);
                             },
                             child: Icon(Icons.play_arrow),
                           )
